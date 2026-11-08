@@ -1,0 +1,3 @@
+
+### Get hello world from root
+GET http://localhost:3000
