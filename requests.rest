@@ -1,3 +1,54 @@
 
 ### Get hello world from root
 GET http://localhost:3000
+
+### Create a movie (run this first - later requests use its _id)
+# @name createMovie
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+  "title": "Interstellar",
+  "year": 2014,
+  "director": "Christopher Nolan",
+  "genre": "Sci-Fi",
+  "description": "A team of explorers travels through a wormhole in space to ensure humanity's survival."
+}
+
+### Get all movies
+GET http://localhost:3000/movies
+
+### Get movies filtered by year
+GET http://localhost:3000/movies?year=2014
+
+### Get movie by id
+GET http://localhost:3000/movies/{{createMovie.response.body._id}}
+
+### Update a movie
+PUT http://localhost:3000/movies/{{createMovie.response.body._id}}
+Content-Type: application/json
+
+{
+  "title": "Interstellar (Director's Cut)",
+  "year": 2014,
+  "director": "Christopher Nolan",
+  "genre": "Sci-Fi",
+  "description": "Extended cut of the journey through a wormhole to save humanity."
+}
+
+### Delete a movie
+DELETE http://localhost:3000/movies/{{createMovie.response.body._id}}
+
+### Get deleted movie (expect 404)
+GET http://localhost:3000/movies/{{createMovie.response.body._id}}
+
+### Get movie with invalid id (expect 404)
+GET http://localhost:3000/movies/not-a-valid-id
+
+### Create movie without title (expect 400)
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+  "year": 2020
+}
